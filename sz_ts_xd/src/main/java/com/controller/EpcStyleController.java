@@ -27,13 +27,13 @@ public class EpcStyleController {
 	@RequestMapping(value="selectByEpc" ,method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<ResponseResult<Map<String, Object>>> selectByEpc(@Param("epc")String epc){
-		return epcStyleService.selectByEpc(epc);
+		return epcStyleService.insertByEpc(epc);
 	}
 	
 	@RequestMapping(value="selectByMatchStyle",method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<ResponseResult<Map<String, Object>>> selectByMatchStyle(@Param("matchStyle")String matchStyle,@Param("style")String style){
-		return epcStyleService.selectByMatchStyle(matchStyle, style);
+		return epcStyleService.insertByMatchStyle(matchStyle, style);
 	}
 	
 }
