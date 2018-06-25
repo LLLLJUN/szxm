@@ -6,8 +6,13 @@ import javax.annotation.Resource;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.EpcStyleDao;
+import com.dao.MatchDataDao;
+import com.dao.TryOnDataDao;
+import com.model.MatchData;
+import com.model.TryOnData;
 import com.service.EpcStyleService;
 import com.util.RespResultGenerator;
 import com.util.ResponseResult;
@@ -22,11 +27,27 @@ public class EpcStyleServiceImp implements EpcStyleService {
 	@Resource
 	private EpcStyleDao epcStyleDao;
 	
-	public ResponseEntity<ResponseResult<Map<String, Object>>> selectByEpc(String epc) {
+	@Resource
+	private MatchDataDao matchDataDao;
+	
+	@Resource 
+	private TryOnDataDao tryOnDataDao;
+	
+	@Transactional
+	public ResponseEntity<ResponseResult<Map<String, Object>>> insertByEpc(String epc) {
 		try {
 			if(epc!=null){
-				if(epcStyleDao.selectByEpc(epc)!=null){
-					return RespResultGenerator.genOK(epcStyleDao.selectByEpc(epc), "获取成功");
+				Map<String, Object> map=epcStyleDao.selectByEpc(epc);
+				TryOnData tryOnData=new TryOnData();
+				if(map!=null){
+					tryOnData.setEpc(epc);
+					tryOnData.setStyle((String) map.get("style"));
+					int num=tryOnDataDao.insertTryOnData(tryOnData);
+					if(num>0){
+						return RespResultGenerator.genOK(epcStyleDao.selectByEpc(epc), "获取成功");
+					}else{
+						return RespResultGenerator.genError(null, "获取失败");
+					}
 				}else{
 					return RespResultGenerator.genOK(null, "没有该数据");
 				}
@@ -38,13 +59,22 @@ public class EpcStyleServiceImp implements EpcStyleService {
 			return RespResultGenerator.genError(null, "操作失败");
 		}
 	}
-
-	public ResponseEntity<ResponseResult<Map<String, Object>>> selectByMatchStyle(String matchStyle,String style) {
+	
+	@Transactional
+	public ResponseEntity<ResponseResult<Map<String, Object>>> insertByMatchStyle(String matchStyle,String style) {
 		try {
 			if(matchStyle!=null&& style!=null){
 				Map<String, Object> epcStyle=epcStyleDao.selectByMatchStyle(matchStyle);
 			 	if(epcStyle!=null){
-			 		return RespResultGenerator.genOK(epcStyle, "获取成功");
+			 		MatchData matchData=new MatchData();
+			 		matchData.setMatchStyle(matchStyle);
+			 		matchData.setStyle(style);
+			 		int num=matchDataDao.insertMatchData(matchData);
+			 		if(num>0){
+			 			return RespResultGenerator.genOK(epcStyle, "获取成功");
+			 		}else{
+			 			return RespResultGenerator.genError(null, "获取失败");
+			 		}
 			 	}else{
 			 		return RespResultGenerator.genError(null, "没有该数据");
 			 	}

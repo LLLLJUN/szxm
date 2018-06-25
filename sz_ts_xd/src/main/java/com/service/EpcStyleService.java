@@ -12,7 +12,7 @@ import com.util.ResponseResult;
  * @date 2018年6月21日
  */
 public interface EpcStyleService {
-	ResponseEntity<ResponseResult<Map<String, Object>>> selectByEpc(@Param("epc")String epc);
+	ResponseEntity<ResponseResult<Map<String, Object>>> insertByEpc(@Param("epc")String epc);
 	
-	ResponseEntity<ResponseResult<Map<String, Object>>> selectByMatchStyle(@Param("matchStyle")String matchStyle,@Param("style")String style);
+	ResponseEntity<ResponseResult<Map<String, Object>>> insertByMatchStyle(@Param("matchStyle")String matchStyle,@Param("style")String style);
 }

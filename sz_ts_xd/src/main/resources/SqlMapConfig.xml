@@ -16,11 +16,15 @@
 		<typeAlias type="com.model.StyleImg" alias="styleImg"/>
 		<typeAlias type="com.model.StyleInfo" alias="styleInfo"/>
 		<typeAlias type="com.model.StyleMatch" alias="styleMatch"/>
+		<typeAlias type="com.model.TryOnData" alias="tryOnData"/>
+		<typeAlias type="com.model.MatchData" alias="matchData"/>
 	</typeAliases>
 	<!--映射文件  -->
 	<mappers>
 		<mapper resource="com/mapper/AdvertisingDaoMapper.xml"/>
 		<mapper resource="com/mapper/AppVersionDaoMapper.xml"/>
 		<mapper resource="com/mapper/EpcStyleDaoMapper.xml"/>
+		<mapper resource="com/mapper/MatchDataDaoMapper.xml"/>
+		<mapper resource="com/mapper/TryOnDataDaoMapper.xml"/>
 	</mappers>
 </configuration>

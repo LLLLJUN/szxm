@@ -13,7 +13,7 @@ public class MatchData implements Serializable {
 	 */
 	private static final long serialVersionUID = -1542878050248837437L;
 	private int id;
-	private String matchStyel;
+	private String matchStyle;
 	private String style;
 	private String createTime;
 	public int getId() {
@@ -22,11 +22,11 @@ public class MatchData implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getMatchStyel() {
-		return matchStyel;
+	public String getMatchStyle() {
+		return matchStyle;
 	}
-	public void setMatchStyel(String matchStyel) {
-		this.matchStyel = matchStyel;
+	public void setMatchStyle(String matchStyle) {
+		this.matchStyle = matchStyle;
 	}
 	public String getStyle() {
 		return style;
