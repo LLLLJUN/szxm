@@ -3,6 +3,7 @@ package com.controller;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.ResponseEntity;
@@ -69,4 +70,10 @@ public class AdvertisingController {
 		return advertisingService.selectAllUrl(ad_Version);
 	}
 	
+	@RequestMapping(value="bese/image", method= RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView urlset(HttpServletRequest requst,HttpServletResponse response){
+		response.setContentType("txt/html;Charset=UTF-8");
+		return new ModelAndView("imgList");
+	};
 }

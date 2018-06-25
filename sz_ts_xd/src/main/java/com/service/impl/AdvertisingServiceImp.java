@@ -101,6 +101,7 @@ public class AdvertisingServiceImp implements AdvertisingService {
 	}
 
 	public ModelAndView selectAllImg() {
+		
 		ModelAndView mv=new ModelAndView();
 		try {
 			List<Advertising> advertisingList=advertisingDao.selectAllImg();

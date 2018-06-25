@@ -25,9 +25,8 @@ public class EpcStyleServiceImp implements EpcStyleService {
 	public ResponseEntity<ResponseResult<Map<String, Object>>> selectByEpc(String epc) {
 		try {
 			if(epc!=null){
-				Map<String,Object> epcStyle=epcStyleDao.selectByEpc(epc);
-				if(epcStyle!=null){
-					return RespResultGenerator.genOK(epcStyle, "获取成功");
+				if(epcStyleDao.selectByEpc(epc)!=null){
+					return RespResultGenerator.genOK(epcStyleDao.selectByEpc(epc), "获取成功");
 				}else{
 					return RespResultGenerator.genOK(null, "没有该数据");
 				}
