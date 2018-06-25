@@ -18,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.service.AdvertisingService;
 import com.util.ResponseResult;
 
+
+
 @Controller
 public class AdvertisingController {
 	
