@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dao.StoresDao">
+	
+	<select id="selectAllStore" resultType="map">
+		select storeCode,storeName,StoreTel,storeAddress from ts_stores
+	</select>
+	
+	<select id="selectByStoreCode" parameterType="java.lang.String" resultType="map">
+		select storeCode,storeName,storeTel,storeAddress from ts_stores where storeCode=#{storeCode}
+	</select>
+</mapper>

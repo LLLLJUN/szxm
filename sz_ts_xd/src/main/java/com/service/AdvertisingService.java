@@ -52,7 +52,7 @@ public interface AdvertisingService {
 	 List<Advertising> selectCount();
 	 
 	 /**
-	  * 查询出所以的图片路径
+	  * 查询出所有的图片路径
 	  * @return
 	  */	 
 	 ResponseEntity<ResponseResult<Map<String,Object>>> selectAllUrl(int adVersion);

@@ -139,7 +139,6 @@ public class AdvertisingServiceImp implements AdvertisingService {
 	public ResponseEntity<ResponseResult<Map<String, Object>>> selectAllUrl(int adVersion) {
 		int version=0;
 		try {
-				System.out.println(adVersion);
 				List<Advertising> advertisingList=advertisingDao.selectCount();
 				for (Advertising advertising : advertisingList) {
 					 version=advertising.getAdVersion();
@@ -155,7 +154,7 @@ public class AdvertisingServiceImp implements AdvertisingService {
 				}
 		} catch (Exception e) {
 			 e.printStackTrace();
-			 return   RespResultGenerator.genError(null, "操作失败:"+e.toString()+"================="+version);
+			 return   RespResultGenerator.genError(null, "操作失败");
 		}
 	}
 }

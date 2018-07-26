@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ws.dao.UsersDao">
+	<resultMap type="map" id="result">
+		<id property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="userCode" column="userCode"/>
+		<result property="userPsw" column="userPsw"/>
+		<result property="userRole" column="userRole"/>
+		<result property="userMail" column="userMail"/>
+		<result property="userTel" column="userTel"/>
+		<result property="storeCode" column="storeCode"/>
+		<result property="createTime" column="createTime"/>
+		<association property="stores" column="storeCode" select="selectByStoreCode"/>
+	</resultMap>
+
+	<select id="selectLogin" parameterType="Users" resultMap="result">
+		select r.role,u.storeCode,u.userName from ws_users u ,ws_role r WHERE u.userRole=r.id and userCode=#{userCode} and userPsw=#{userPsw}
+	</select>
+	
+	<select id="selectByStoreCode" parameterType="java.lang.String" resultType="map">
+		select storeName from ws_stores where storeCode=#{storeCode}
+	</select>
+	
+	<select id="selectByUsersCode" resultType="Users" parameterType="java.lang.String">
+		select userCode,userPsw from ws_users where userCode=#{userCode} 
+	</select>
+	
+	<insert id="insertUser" parameterType="users">
+		insert into ws_users(userName,userCode,userPsw,userRole,userMail,userTel,storeCode,createTime) 
+		values(#{userName},#{userCode},#{userPsw},#{userRole},#{userMail},#{userTel},#{storeCode},now())
+	</insert>
+	
+	<update id="updateUsers" parameterType="users">
+		update ws_users set userName=#{userName},userRole=#{userRole},userMail=#{userMail},userTel=#{userTel},storeCode=#{storeCode} where userCode=#{userCode}
+	</update>
+	
+	<delete id="deleteUsers" parameterType="java.lang.String">
+		delete from ws_users where userCode=#{userCode}
+	</delete>
+	
+	<select id="selectCount" parameterType="Condition" resultType="int">
+		select count(1) from ws_users where storeCode=#{storeCode}
+	</select>
+	
+	<select id="selectUserList" parameterType="Page" resultType="map">
+		select u.userName,u.userCode,u.userTel,u.userMail,u.userRole,s.storeName,u.createTime 
+		from ws_users u left join ws_stores s on u.storeCode=s.storeCode
+		<where>
+			<if test="condition.storeCode!=null">
+				u.storeCode=#{condition.storeCode}
+			</if>
+		</where>
+		order by u.createTime desc limit #{startRow},#{rows}
+	</select>
+</mapper>
